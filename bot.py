@@ -90,8 +90,8 @@ def new_game(bot, update):
         game.owner.append(update.message.from_user.id)
         game.mode = DEFAULT_GAMEMODE
         send_async(bot, chat_id,
-                   text=_("Created a new game! Join the game with /join "
-                          "and start the game with /start"))
+                   text=_("Created a new game! Join the game with /gjoin "
+                          "and start the game with /gstart"))
 
 
 @user_locale
@@ -148,13 +148,13 @@ def join_game(bot, update):
     except NoGameInChatError:
         send_async(bot, chat.id,
                    text=_("No game is running at the moment. "
-                          "Create a new game with /new"),
+                          "Create a new game with /gnew"),
                    reply_to_message_id=update.message.message_id)
 
     except AlreadyJoinedError:
         send_async(bot, chat.id,
                    text=_("You already joined the game. Start the game "
-                          "with /start"),
+                          "with /gstart"),
                    reply_to_message_id=update.message.message_id)
 
     except DeckEmptyError:
@@ -230,14 +230,14 @@ def kick_player(bot, update):
     except (KeyError, IndexError):
             send_async(bot, chat.id,
                    text=_("No game is running at the moment. "
-                          "Create a new game with /new"),
+                          "Create a new game with /gnew"),
                    reply_to_message_id=update.message.message_id)
             return
 
     if not game.started:
         send_async(bot, chat.id,
                    text=_("The game is not started yet. "
-                          "Join the game with /join and start the game with /start"),
+                          "Join the game with /gjoin and start the game with /gstart"),
                    reply_to_message_id=update.message.message_id)
         return
 
@@ -266,7 +266,7 @@ def kick_player(bot, update):
 
         else:
             send_async(bot, chat.id,
-                text=_("Please reply to the person you want to kick and type /kick again."),
+                text=_("Please reply to the person you want to kick and type /gkick again."),
                 reply_to_message_id=update.message.message_id)
             return
 
@@ -358,7 +358,7 @@ def start_game(bot, update, args, job_queue):
         except (KeyError, IndexError):
             send_async(bot, chat.id,
                        text=_("There is no game running in this chat. Create "
-                              "a new one with /new"))
+                              "a new one with /gnew"))
             return
 
         if game.started:
@@ -366,7 +366,7 @@ def start_game(bot, update, args, job_queue):
 
         elif len(game.players) < MIN_PLAYERS:
             send_async(bot, chat.id,
-                       text=__("At least {minplayers} players must /join the game "
+                       text=__("At least {minplayers} players must /gjoin the game "
                               "before you can start it").format(minplayers=MIN_PLAYERS))
 
         else:
@@ -378,7 +378,7 @@ def start_game(bot, update, args, job_queue):
             choice = [[InlineKeyboardButton(text=_("Make your choice!"), switch_inline_query_current_chat='')]]
             first_message = (
                 __("First player: {name}\n"
-                   "Use /close to stop people from joining the game.\n"
+                   "Use /gclose to stop people from joining the game.\n"
                    "Enable multi-translations with /enable_translations",
                    multi=game.translate)
                 .format(name=display_name(game.current_player.user)))
@@ -417,9 +417,6 @@ def start_game(bot, update, args, job_queue):
         send_async(bot, update.message.chat_id,
                    text=_('Please select the group you want to play in.'),
                    reply_markup=InlineKeyboardMarkup(groups))
-
-    else:
-        help_handler(bot, update)
 
 
 @user_locale
@@ -467,7 +464,7 @@ def open_game(bot, update):
     if user.id in game.owner:
         game.open = True
         send_async(bot, chat.id, text=_("Opened the lobby. "
-                                        "New players may /join the game."))
+                                        "New players may /gjoin the game."))
         return
     else:
         send_async(bot, chat.id,
