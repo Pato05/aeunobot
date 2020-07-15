@@ -46,7 +46,7 @@ from utils import send_async, answer_async, error, TIMEOUT, user_is_creator_or_a
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.INFO
+    level=logging.DEBUG
 )
 logger = logging.getLogger(__name__)
 
