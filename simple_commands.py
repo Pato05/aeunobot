@@ -144,6 +144,7 @@ def stats(bot, update):
 
 
 def register():
+    dispatcher.add_handler(CommandHandler('start', help_handler))
     dispatcher.add_handler(CommandHandler('help', help_handler))
     dispatcher.add_handler(CommandHandler('source', source))
     dispatcher.add_handler(CommandHandler('news', news))
