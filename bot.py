@@ -121,7 +121,7 @@ def kill_game(bot, update):
         except NoGameInChatError:
             send_async(bot, chat.id,
                        text=_("The game is not started yet. "
-                              "Join the game with /join and start the game with /start"),
+                              "Join the game with /gjoin and start the game with /gstart"),
                        reply_to_message_id=update.message.message_id)
 
     else:
