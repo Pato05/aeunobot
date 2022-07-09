@@ -37,4 +37,6 @@ available_locales = {'en_US': flag('US') + ' English (US)',
                      'tr_TR': flag('TR') + ' Türkçe',
                      'zh_CN': flag('CN') + ' 中文(简体)',
                      'zh_HK': flag('HK') + ' 廣東話',
-                     'zh_TW': flag('TW') + ' 中文(台灣)'}
+                     'zh_TW': flag('TW') + ' 中文(台灣)',
+                     'ca_CA': flag('ES') + ' Catalan',
+                     'ml_IN': flag('IN') + ' Malayalam'}
